@@ -1,0 +1,73 @@
+{
+  "Version": 3,
+  "Coins": {
+    "Heads": [
+      "https://i.imgur.com/rlLWef6.png"
+    ],
+    "Tails": [
+      "https://i.imgur.com/RZbqSXA.png"
+    ]
+  },
+  "Currency": [
+	"https://img.hentai-heaven.net/2020/11/02/sKJI.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sOYe.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/swUj.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sDdW.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sHOq.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sMS2.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sYer.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/smWF.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/spAm.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sy7a.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/s2Jt.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sAYH.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sZtd.jpg",
+	"https://img.hentai-heaven.net/2020/11/02/sjd8.jpg"
+  ],
+  "Dice": [
+    "https://i.imgur.com/KyOfDw1.png",
+    "https://i.imgur.com/IX8xjZ3.png",
+    "https://i.imgur.com/k9GqKp5.png",
+    "https://i.imgur.com/rmhTSnp.png",
+    "https://i.imgur.com/93PUmFr.png",
+    "https://i.imgur.com/CMBCJRC.png",
+    "https://i.imgur.com/VqhUpsV.png",
+    "https://i.imgur.com/r6rFCuT.png",
+    "https://i.imgur.com/eIxuOpg.png",
+    "https://i.imgur.com/At9YgRO.png"
+  ],
+  "Rategirl": {
+    "Matrix": "https://i.imgur.com/z7yySqA.png",
+    "Dot": "https://i.imgur.com/TpubajW.png"
+  },
+  "Xp": {
+    "Bg": "https://i.imgur.com/aarChyx.png"
+  },
+  "Rip": {
+    "Bg": "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/rip/rip.png",
+    "Overlay": "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/rip/overlay.png"
+  },
+  "Slots": {
+    "Emojis": [
+      "https://i.imgur.com/EnRS0bt.png",
+      "https://i.imgur.com/ayltEfb.png",
+      "https://i.imgur.com/22nD7Ya.png",
+      "https://i.imgur.com/HM2HGxO.png",
+      "https://i.imgur.com/JDWMtoD.png",
+      "https://i.imgur.com/MSvInyG.png"
+    ],
+    "Numbers": [
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/0.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/1.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/2.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/3.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/4.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/5.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/6.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/7.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/8.png",
+      "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/slots/numbers/9.png"
+    ],
+    "Bg": "https://i.imgur.com/c6u4s8z.png"
+  }
+}
