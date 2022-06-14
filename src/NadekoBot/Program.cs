@@ -1,33 +1,28 @@
-﻿using NadekoBot.Core.Services;
-using System.Diagnostics;
-using System.Threading.Tasks;
+var pid = Environment.ProcessId;
 
-namespace NadekoBot
+var shardId = 0;
+int? totalShards = null; // 0 to read from creds.yml
+if (args.Length > 0 && args[0] != "run")
 {
-    public sealed class Program
+    if (!int.TryParse(args[0], out shardId))
     {
-        public static async Task Main(string[] args)
+        Console.Error.WriteLine("Invalid first argument (shard id): {0}", args[0]);
+        return;
+    }
+
+    if (args.Length > 1)
+    {
+        if (!int.TryParse(args[1], out var shardCount))
         {
-            System.Console.WriteLine($"Pid: {Process.GetCurrentProcess().Id}");
-            if (args.Length == 2
-                && int.TryParse(args[0], out int shardId)
-                && int.TryParse(args[1], out int parentProcessId))
-            {
-                await new NadekoBot(shardId, parentProcessId)
-                    .RunAndBlockAsync();
-            }
-            else
-            {
-                await new ShardsCoordinator()
-                    .RunAsync()
-                    .ConfigureAwait(false);
-#if DEBUG
-                await new NadekoBot(0, Process.GetCurrentProcess().Id)
-                    .RunAndBlockAsync();
-#else
-                await Task.Delay(-1);
-#endif
-            }
+            Console.Error.WriteLine("Invalid second argument (total shards): {0}", args[1]);
+            return;
         }
+
+        totalShards = shardCount;
     }
 }
+
+LogSetup.SetupLogger(shardId);
+Log.Information("Pid: {ProcessId}", pid);
+
+await new Bot(shardId, totalShards).RunAndBlockAsync();

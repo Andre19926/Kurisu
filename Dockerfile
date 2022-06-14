@@ -1,44 +1,45 @@
-FROM microsoft/dotnet:2.1-sdk-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
 
-COPY . /nadekoBot
+COPY src/Nadeko.Medusa/*.csproj src/Nadeko.Medusa/
+COPY src/NadekoBot/*.csproj src/NadekoBot/
+COPY src/NadekoBot.Coordinator/*.csproj src/NadekoBot.Coordinator/
+COPY src/NadekoBot.Generators/*.csproj src/NadekoBot.Generators/
+COPY src/ayu/Ayu.Discord.Voice/*.csproj src/ayu/Ayu.Discord.Voice/
+RUN dotnet restore src/NadekoBot/
 
-WORKDIR /nadekoBot/src/NadekoBot
-RUN set -ex; \
-    dotnet restore; \
-    dotnet build -c Release; \
-    dotnet publish -c Release -o /app
+COPY . .
+WORKDIR /source/src/NadekoBot
+RUN set -xe; \
+    dotnet --version; \
+    dotnet publish -c Release -o /app --no-restore; \
+    mv /app/data /app/data_init; \
+    rm -Rf libopus* libsodium* opus.* runtimes/win* runtimes/osx* runtimes/linux-arm* runtimes/linux-mips*; \
+    find /app -type f -exec chmod -x {} \; ;\
+    chmod +x /app/NadekoBot
 
+# final stage/image
+FROM mcr.microsoft.com/dotnet/runtime:6.0
 WORKDIR /app
-RUN set -ex; \
-    rm libopus.so libsodium.dll libsodium.so opus.dll; \
-    find . -type f -exec chmod -x {} \;; \
-    rm -R runtimes/win* runtimes/osx* runtimes/linux-*
 
-FROM microsoft/dotnet:2.1-runtime-alpine AS runtime
-WORKDIR /app
-COPY --from=build /app /app
-RUN set -ex; \
-    echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories; \
-    echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories; \
-    apk add --no-cache \
-        ffmpeg \
-        youtube-dl@edge \
-        libsodium \
-        opus \
-        rsync; \
-    adduser -D nadeko; \
-    chown nadeko /app; \
-    chmod u+w /app; \
-    mv /app/data /app/data-default; \
-    install -d -o nadeko -g nadeko -m 755 /app/data;
+RUN set -xe; \
+    useradd -m nadeko; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends libopus0 libsodium23 libsqlite3-0 curl ffmpeg python3 python3-pip sudo; \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1; \
+    echo 'Defaults>nadeko env_keep+="ASPNETCORE_* DOTNET_* NadekoBot_* shard_id total_shards TZ"' > /etc/sudoers.d/nadeko; \
+    pip3 install --no-cache-dir --upgrade youtube-dl; \
+    apt-get purge -y python3-pip; \
+    chmod +x /usr/local/bin/youtube-dl; \
+    apt-get autoremove -y; \
+    apt-get autoclean -y
 
-# workaround for the runtime to find the native libs loaded through DllImport
-RUN set -ex; \
-    ln -s /usr/lib/libopus.so.0 /app/libopus.so; \
-    ln -s /usr/lib/libsodium.so.23 /app/libsodium.so
+COPY --from=build /app ./
+COPY docker-entrypoint.sh /usr/local/sbin
+
+ENV shard_id=0
+ENV total_shards=1
 
 VOLUME [ "/app/data" ]
-USER nadeko
-
-COPY docker-entrypoint.sh /
-CMD ["/docker-entrypoint.sh"]
+ENTRYPOINT [ "/usr/local/sbin/docker-entrypoint.sh" ]
+CMD dotnet NadekoBot.dll "$shard_id" "$total_shards"

@@ -1,17 +1,24 @@
 #Manually added files
 
-patreon_rewards.json
+# medusa stuff
+!src/NadekoBot/data/medusae/medusa.yml
+src/NadekoBot/data/medusae/**
+
+# other
+
 command_errors*.txt
+output/
+src/NadekoBot/output
+src/NadekoBot/creds.yml
 
 src/NadekoBot/Command Errors*.txt
 
-src/NadekoBot/credentials.json
-# these 2 are used for migrations
-NadekoBot.Core/credentials.json
-NadekoBot.Core/credentials_example.json
-
+src/NadekoBot/creds.yml
+# credentials file before and after v3
+src/NadekoBot/credentials.json 
+src/NadekoBot/old_credentials.json 
+src/NadekoBot/credentials.json.bak
 src/NadekoBot/data/NadekoBot.db
-src/NadekoBot/data/musicdata
 
 # Created by https://www.gitignore.io/api/visualstudio,visualstudiocode,windows,linux,macos
 
@@ -255,7 +262,7 @@ PublishScripts/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
-# NuGet v3's project.json files produces more ignoreable files
+# NuGet v4's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
 
